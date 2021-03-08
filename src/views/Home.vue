@@ -10,7 +10,7 @@
           alt="Workflow"
         />
         <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Balance Tracker
+          Campus Entry
         </h2>
       </div>
       <div v-if="showLogin">
@@ -79,7 +79,7 @@ export default defineComponent({
       console.log("Home:enterDashboard:user: ", user);
       // console.log(context); // Nope. {expose: f}
       // console.log(context.attrs["user"]); // Nope. undefined
-      router.push({ name: "Dashboard" });
+      router.push({ name: "Entrance" });
       // Q: How to get the user details passed as well? Use context?
       // A: No! We still need to use Firebase methods to get the User, etc. but
       // A: we can then pass it as payload of context.emit('event', payload)

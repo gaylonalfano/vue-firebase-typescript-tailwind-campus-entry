@@ -8,11 +8,17 @@ import {
 
 import { auth } from "@/firebase/config";
 import Home from "@/views/Home.vue";
-import Dashboard from "@/views/Dashboard.vue";
-import AddMember from "@/views/AddMember.vue";
-import AddTransaction from "@/views/AddTransaction.vue";
-import DeleteAccountModal from "@/views/DeleteAccountModal.vue";
-import MemberAccountsTransactionsDetails from "@/views/MemberAccountsTransactionsDetails.vue";
+import Entrance from "@/views/Entrance.vue";
+import StudentForm from "@/views/forms/StudentForm.vue";
+import EmployeeForm from "@/views/forms/EmployeeForm.vue";
+import ConsultantForm from "@/views/forms/ConsultantForm.vue";
+import VisitorForm from "@/views/forms/ConsultantForm.vue";
+import QrCode from "@/views/forms/QrCode.vue";
+// import AdminDashboard from "@/views/admin/AdminDashboard.vue";
+// import Blank from "@/views/admin/Blank.vue";
+// import SubmissionManagement from "@/views/admin/SubmissionManagement.vue";
+// import UserManagement from "@/views/admin/UserManagement.vue";
+// import FormManagement from "@/views/admin/FormManagement.vue";
 
 // Creating another Route Guard for Home page for logged-in users
 // They should be redirected to Dashboard if logged in already
@@ -27,7 +33,7 @@ function requireNoAuth(
 
   if (user) {
     // Redirect to Dashboard route
-    next({ name: "Dashboard" });
+    next({ name: "Entrance" });
   } else {
     // Let them through/continue to Home page
     next();
@@ -60,47 +66,168 @@ function requireAuth(
   }
 }
 
+// // === AMPLIFY Create a Route Guard for ADMIN Cognito User Group
+// async function requireAdmin(
+//   to: RouteLocationNormalized,
+//   from: RouteLocationNormalized,
+//   next: NavigationGuardNext
+// ) {
+//   // Grab current authenticated user's session accessToken info for groups
+//   const currentUser = await Auth.currentUserInfo();
+//   console.log("RouterGuard:requireAdmin:currentUser: ", currentUser);
+
+//   // Unauthenticated
+//   if (!currentUser) {
+//     // Unauthenticated (user is null) so send back to Login page
+//     next({ name: "Login" });
+//   }
+
+//   // Authenticated but not sure if Authorized for /admin
+//   if (currentUser) {
+//     const currentAuthUser = await Auth.currentAuthenticatedUser();
+//     const userGroups =
+//       currentAuthUser.signInUserSession.accessToken.payload["cognito:groups"];
+//     // console.log("userGroups", userGroups);
+//     // console.log(userGroups[0]);
+//     // console.log(userGroups.includes("admin")); // true
+//     if (userGroups && userGroups.includes("admin")) {
+//       // Authenticated + Authorized (admin)
+//       next();
+//     } else {
+//       // Authenticated only (not admin)
+//       next({ name: "Home" });
+//     }
+//   }
+// }
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Home",
     component: Home,
     beforeEnter: requireNoAuth,
+    // meta: { layout: "empty" },
   },
   {
-    path: "/dashboard",
-    name: "Dashboard",
-    component: Dashboard,
+    path: "/entrance",
+    name: "Entrance",
+    component: Entrance,
     beforeEnter: requireAuth,
+    // meta: { layout: "empty" },
   },
   {
-    path: "/members/add",
-    name: "AddMember",
-    component: AddMember,
+    path: "/entrance/student",
+    name: "Student",
+    component: StudentForm,
     beforeEnter: requireAuth,
+    // meta: { layout: "empty" },
   },
   {
-    path: "/members/:id/accounts/:type/delete",
-    name: "DeleteAccount",
-    component: DeleteAccountModal,
+    path: "/entrance/employee",
+    name: "Employee",
+    component: EmployeeForm,
     beforeEnter: requireAuth,
-    props: true,
+    // meta: { layout: "empty" },
   },
   {
-    path: "/members/:id/accounts/:type/transactions/add",
-    name: "AddTransaction",
-    component: AddTransaction,
+    path: "/entrance/consultant",
+    name: "Consultant",
+    component: ConsultantForm,
     beforeEnter: requireAuth,
-    props: true,
+    // meta: { layout: "empty" },
   },
   {
-    path: "/members/:id/accounts/:type/transactions",
-    name: "MemberAccountsTransactionsDetails",
-    component: MemberAccountsTransactionsDetails,
+    path: "/entrance/visitor",
+    name: "Visitor",
+    component: VisitorForm,
     beforeEnter: requireAuth,
-    props: true,
+    // meta: { layout: "empty" },
   },
+  {
+    path: "/entrance/qrcode",
+    name: "QrCode",
+    component: QrCode,
+    beforeEnter: requireAuth,
+    // meta: { layout: "empty" },
+  },
+  // {
+  //   path: "/admin",
+  //   name: "AdminDashboard",
+  //   component: AdminDashboard,
+  //   // beforeEnter: requireAdmin,
+  // },
+  // {
+  //   path: "/admin/submission-management",
+  //   name: "SubmissionManagement",
+  //   component: SubmissionManagement,
+  //   // beforeEnter: requireAdmin,
+  // },
+  // {
+  //   path: "/admin/user-management",
+  //   name: "UserManagement",
+  //   component: UserManagement,
+  //   // beforeEnter: requireAdmin,
+  // },
+  // {
+  //   path: "/admin/form-management",
+  //   name: "FormManagement",
+  //   component: FormManagement,
+  //   // beforeEnter: requireAdmin,
+  // },
+  // {
+  //   path: "/admin/blank",
+  //   name: "Blank",
+  //   component: Blank,
+  //   beforeEnter: requireNoAuth,
+  // },
+  //{
+  //  path: "*",
+  //  name: "404",
+  //  component: FourZeroFour
+  //}
 ];
+
+// const routes: Array<RouteRecordRaw> = [
+//   {
+//     path: "/",
+//     name: "Home",
+//     component: Home,
+//     beforeEnter: requireNoAuth,
+//   },
+//   {
+//     path: "/dashboard",
+//     name: "Dashboard",
+//     component: Dashboard,
+//     beforeEnter: requireAuth,
+//   },
+//   {
+//     path: "/members/add",
+//     name: "AddMember",
+//     component: AddMember,
+//     beforeEnter: requireAuth,
+//   },
+//   {
+//     path: "/members/:id/accounts/:type/delete",
+//     name: "DeleteAccount",
+//     component: DeleteAccountModal,
+//     beforeEnter: requireAuth,
+//     props: true,
+//   },
+//   {
+//     path: "/members/:id/accounts/:type/transactions/add",
+//     name: "AddTransaction",
+//     component: AddTransaction,
+//     beforeEnter: requireAuth,
+//     props: true,
+//   },
+//   {
+//     path: "/members/:id/accounts/:type/transactions",
+//     name: "MemberAccountsTransactionsDetails",
+//     component: MemberAccountsTransactionsDetails,
+//     beforeEnter: requireAuth,
+//     props: true,
+//   },
+// ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

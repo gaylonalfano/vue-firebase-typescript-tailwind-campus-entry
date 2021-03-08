@@ -113,6 +113,15 @@ export default defineComponent({
         // const user = auth.currentUser;
         // context.emit("login", user);
         context.emit("login", response?.user);
+
+        // TODO Add ADMIN user group distinction
+        // Reroute to Home/Entrance if NOT admin group
+        // if (userGroups == undefined) {
+        //   // User doesn't have a auth group.
+        //   router.push({ name: "Home" });
+        // } else if (userGroups.includes("admin")) {
+        //   router.push({ name: "AdminDashboard" });
+        // }
       }
     }
 

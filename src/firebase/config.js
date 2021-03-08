@@ -3,13 +3,14 @@ import "firebase/firestore";
 import "firebase/auth";
 import "firebase/storage";
 
+// NOTE Change this per FB project!
 const firebaseConfig = {
-  apiKey: "AIzaSyAHaqzJAz6E25lbtEm3ilf9FnOvKl0oK5A",
-  authDomain: "balance-tracker-fd26d.firebaseapp.com",
-  projectId: "balance-tracker-fd26d",
-  storageBucket: "balance-tracker-fd26d.appspot.com",
-  messagingSenderId: "1055286535153",
-  appId: "1:1055286535153:web:a6c0c7ea45cfb6a820da50",
+  apiKey: "AIzaSyBzuxA2P6zrJ796DqoxldG82HmD8yxcuAE",
+  authDomain: "campus-entry.firebaseapp.com",
+  projectId: "campus-entry",
+  storageBucket: "campus-entry.appspot.com",
+  messagingSenderId: "240218157859",
+  appId: "1:240218157859:web:e3ef92e4c3d8485fc29296",
 };
 
 // === Init Firebase App connection to backend
